@@ -2,15 +2,39 @@
 Allen Zagic
 LIS4370
 “Repository for R Programming Assignments”
-A <- matrix(c(2, 0, 1, 3), ncol = 2)
-B <- matrix(c(5, 2, 4, -1), ncol = 2)
+data("iris")
+head(iris)
+class(iris)
+typeof(iris)
+summary(iris)
+plot(iris)
+S3
+iris_stats <- list(
+  n = nrow(iris),
+  mean_sepal = mean(iris$Sepal.Length)
+)
 
-A + B
-A - B
+class(iris_stats) <- "iris_stats"
 
-diag(c(4, 1, 2, 3))
+print.iris_stats <- function(x, ...) {
+  cat("Rows:", x$n, "\n")
+  cat("Mean Sepal Length:", x$mean_sepal, "\n")
+}
 
-M <- diag(3, 5)
-M[1, ] <- c(3, 1, 1, 1, 1)
-M[-1, 1] <- 2
-M
+iris_stats
+S4
+setClass(
+  "IrisSummary",
+  slots = c(
+    rows = "numeric",
+    mean_sepal = "numeric"
+  )
+)
+
+iris_s4 <- new(
+  "IrisSummary",
+  rows = nrow(iris),
+  mean_sepal = mean(iris$Sepal.Length)
+)
+
+iris_s4
